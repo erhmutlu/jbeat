@@ -28,7 +28,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<sb.version>${parent.version}</sb.version>
+		<jbeat.version>${project.version}</jbeat.version>
+		<jackson.version>2.8.8</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -44,14 +45,21 @@
 		</dependency>
 	</dependencies>
 
-	<!--<build>-->
-		<!--<plugins>-->
-			<!--<plugin>-->
-				<!--<groupId>org.springframework.boot</groupId>-->
-				<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-			<!--</plugin>-->
-		<!--</plugins>-->
-	<!--</build>-->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.erhmutlu</groupId>
+				<artifactId>jbeat-persistency</artifactId>
+				<version>${jbeat.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.erhmutlu</groupId>
+				<artifactId>jbeat-service</artifactId>
+				<version>${jbeat.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 
 </project>

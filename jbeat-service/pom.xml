@@ -10,12 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jbeat-service</artifactId>
+    <packaging>jar</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+
 
     <dependencies>
         <dependency>
             <groupId>org.erhmutlu</groupId>
             <artifactId>jbeat-persistency</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -30,6 +32,10 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.gmaven</groupId>-->
+                <!--<artifactId>gmaven-plugin</artifactId>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 
