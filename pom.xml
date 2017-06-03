@@ -10,6 +10,7 @@
 	<modules>
 		<module>jbeat-persistency</module>
 		<module>jbeat-service</module>
+		<module>jbeat-webapp</module>
 	</modules>
 
 	<packaging>pom</packaging>
