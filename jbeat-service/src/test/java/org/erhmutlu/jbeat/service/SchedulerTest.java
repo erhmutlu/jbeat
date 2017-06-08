@@ -1,3 +1,5 @@
+package org.erhmutlu.jbeat.service;
+
 import org.junit.Test;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;

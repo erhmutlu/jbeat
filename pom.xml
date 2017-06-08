@@ -11,6 +11,7 @@
         <module>jbeat-persistency</module>
         <module>jbeat-service</module>
         <module>jbeat-starter</module>
+        <module>jbeat-api</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -63,6 +64,12 @@
             <dependency>
                 <groupId>org.erhmutlu</groupId>
                 <artifactId>jbeat-service</artifactId>
+                <version>${jbeat.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.erhmutlu</groupId>
+                <artifactId>jbeat-api</artifactId>
                 <version>${jbeat.version}</version>
             </dependency>
 

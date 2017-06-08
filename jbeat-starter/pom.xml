@@ -25,6 +25,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.erhmutlu</groupId>
+            <artifactId>jbeat-persistency</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.erhmutlu</groupId>
+            <artifactId>jbeat-api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <version>${groovy.version}</version>
