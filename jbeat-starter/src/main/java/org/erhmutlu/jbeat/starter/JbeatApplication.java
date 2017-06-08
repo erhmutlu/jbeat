@@ -1,9 +1,9 @@
-package org.erhmutlu.jbeat;
+package org.erhmutlu.jbeat.starter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"org.erhmutlu.jbeat"})
 public class JbeatApplication {
 
 	public static void main(String[] args) {

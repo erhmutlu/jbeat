@@ -9,9 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jbeat-webapp</artifactId>
+    <artifactId>jbeat-starter</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -22,18 +21,13 @@
         <!--JBeat-->
         <dependency>
             <groupId>org.erhmutlu</groupId>
-            <artifactId>jbeat-persistency</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.erhmutlu</groupId>
             <artifactId>jbeat-service</artifactId>
         </dependency>
 
-
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.4-1206-jdbc42</version>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
         </dependency>
 
     </dependencies>
@@ -45,6 +39,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

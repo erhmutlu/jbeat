@@ -14,7 +14,8 @@ import java.util.Map;
 public class PeriodicTask {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="jbeat_periodic_tasks_id_seq", sequenceName="JBEAT_PERIODIC_TASK_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jbeat_periodic_tasks_id_seq")
     private Long id;
 
     @Column(name = "crontab", nullable = false)

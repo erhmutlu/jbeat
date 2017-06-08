@@ -19,7 +19,30 @@
             <groupId>org.erhmutlu</groupId>
             <artifactId>jbeat-persistency</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1206-jdbc42</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <finalName>${parent.artifactId}-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
