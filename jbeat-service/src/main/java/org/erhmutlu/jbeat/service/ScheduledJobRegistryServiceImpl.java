@@ -26,6 +26,14 @@ public class ScheduledJobRegistryServiceImpl implements ScheduledJobRegistryServ
         this.periodicTaskService = periodicTaskService;
     }
 
+    /**
+     * Schedules the given PeriodicTask using PeriodicTask.crontab field.
+     *
+     * If the given task is registered in the Registry, PeriodicTask is updated and ScheduledJob continues to work.
+     *
+     * @param periodicTask
+     * @return
+     */
     @Override
     public ScheduledJob schedule(PeriodicTask periodicTask){
         logger.info("ScheduledJobRegistryService register(periodicTask: {})", periodicTask);

@@ -22,11 +22,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableConfigurationProperties(JBeatProperties.class)
 public class JBeatServiceConfig {
 
-//    @Bean
-//    public Registry<ScheduledJob> scheduledJobRegistry(){
-//        return new Registry<>();
-//    }
-
     @Bean
     public ScheduledJobRegistry scheduledJobRegistry(){
         return new ScheduledJobRegistry();

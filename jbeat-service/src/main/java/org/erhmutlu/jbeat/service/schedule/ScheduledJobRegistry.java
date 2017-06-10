@@ -40,13 +40,13 @@ public class ScheduledJobRegistry extends Registry<ScheduledJob> {
 
             logger.info("ScheduledJob: {} will be stopped and removed", job);
 
-            // stopping the job is important to avoid undesired job runs.
+            // stopping the job is important to avoid undesired runs.
             job.stop();
             super.remove(key);
-            logger.info("ScheduledJob: {} is stopped and removed", job);
+            logger.info("ScheduledJob is stopped and removed");
         }
 
-        // put into registry safely.
+        // put into registry safely, PeriodicTask.taskName is identifier in the Registry
         super.put(task.getTaskName(), scheduledJob);
     }
 
