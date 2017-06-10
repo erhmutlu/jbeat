@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Registry<T> {
 
-    private Map<String, T> registry;
+    protected Map<String, T> registry;
 
     public Registry() {
         registry = new ConcurrentHashMap<>();
