@@ -1,9 +1,6 @@
 package org.erhmutlu.jbeat.service.config;
 
 import org.erhmutlu.jbeat.api.JBeatProperties;
-import org.erhmutlu.jbeat.api.Registry;
-import org.erhmutlu.jbeat.persistency.dao.PeriodicTaskDao;
-import org.erhmutlu.jbeat.service.schedule.ScheduledJob;
 import org.erhmutlu.jbeat.service.schedule.ScheduledJobRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -21,10 +18,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableConfigurationProperties(JBeatProperties.class)
 public class JBeatServiceConfig {
-
-    @Bean
-    public ScheduledJobRegistry scheduledJobRegistry(){
-        return new ScheduledJobRegistry();
-    }
-
 }

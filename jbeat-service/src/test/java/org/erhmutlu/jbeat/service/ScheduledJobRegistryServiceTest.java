@@ -6,11 +6,27 @@ import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.config.BaseTest;
 import org.erhmutlu.jbeat.service.schedule.ScheduledJob;
 import org.erhmutlu.jbeat.service.schedule.ScheduledJobRegistry;
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.mockito.BDDMockito;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
+import org.mockito.exceptions.verification.TooLittleActualInvocations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by erhmutlu on 08/06/17.
@@ -23,6 +39,7 @@ public class ScheduledJobRegistryServiceTest extends BaseTest {
     @Autowired
     ScheduledJobRegistry registry;
 
+//    @MockBean
     @Autowired
     PeriodicTaskDao periodicTaskDao;
 

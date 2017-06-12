@@ -4,6 +4,7 @@ import org.erhmutlu.jbeat.api.Registry;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
  * Created by erhmutlu on 10/06/17.
  */
 
+@Component
 public class ScheduledJobRegistry extends Registry<ScheduledJob> {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

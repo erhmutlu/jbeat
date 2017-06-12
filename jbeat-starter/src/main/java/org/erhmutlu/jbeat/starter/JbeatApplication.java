@@ -2,6 +2,7 @@ package org.erhmutlu.jbeat.starter;
 
 import org.erhmutlu.jbeat.persistency.dao.PeriodicTaskDao;
 import org.erhmutlu.jbeat.service.ScheduledJobRegistryService;
+import org.erhmutlu.jbeat.service.schedule.ScheduledJobRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,9 +18,9 @@ public class JBeatApplication {
 
 
 //	@Bean
-//	CommandLineRunner runner(ScheduledJobRegistryService scheduledJobRegistryService) {
+//	CommandLineRunner runner(ScheduledJobRegistry scheduledJobRegistry) {
 //		return (strings -> {
-//			scheduledJobRegistryService.schedule(null);
+//			System.out.println(scheduledJobRegistry.get("lalala"));
 //
 //		});
 //	}
