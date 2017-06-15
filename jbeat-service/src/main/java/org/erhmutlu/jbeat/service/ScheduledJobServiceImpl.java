@@ -1,18 +1,20 @@
 package org.erhmutlu.jbeat.service;
 
+import org.erhmutlu.jbeat.api.exceptions.JBeatException;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.schedule.ScheduledJob;
 import org.erhmutlu.jbeat.service.schedule.ScheduledJobRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by erhmutlu on 08/06/17.
  */
 
 @Service
-public class ScheduledJobRegistryServiceImpl implements ScheduledJobRegistryService{
+public class ScheduledJobServiceImpl implements ScheduledJobService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -20,7 +22,7 @@ public class ScheduledJobRegistryServiceImpl implements ScheduledJobRegistryServ
     private RabbitWriterService rabbitWriterService;
     private PeriodicTaskService periodicTaskService;
 
-    public ScheduledJobRegistryServiceImpl(ScheduledJobRegistry scheduledJobRegistry, RabbitWriterService rabbitWriterService, PeriodicTaskService periodicTaskService) {
+    public ScheduledJobServiceImpl(ScheduledJobRegistry scheduledJobRegistry, RabbitWriterService rabbitWriterService, PeriodicTaskService periodicTaskService) {
         this.scheduledJobRegistry = scheduledJobRegistry;
         this.rabbitWriterService = rabbitWriterService;
         this.periodicTaskService = periodicTaskService;
@@ -36,7 +38,7 @@ public class ScheduledJobRegistryServiceImpl implements ScheduledJobRegistryServ
      */
     @Override
     public ScheduledJob schedule(PeriodicTask periodicTask){
-        logger.info("ScheduledJobRegistryService register(periodicTask: {})", periodicTask);
+        logger.info("ScheduledJobService register(periodicTask: {})", periodicTask);
         ScheduledJob scheduledJob = findSchedulerByTaskName(periodicTask.getTaskName());
         if (scheduledJob == null){
             logger.info("Scheduled Job has not registered before, taskName: {}", periodicTask.getTaskName());
@@ -52,8 +54,17 @@ public class ScheduledJobRegistryServiceImpl implements ScheduledJobRegistryServ
         return scheduledJob;
     }
 
+    @Override
+    @Transactional(rollbackFor = JBeatException.class)
+    public ScheduledJob reschedule(String taskName, String newCrontab) throws JBeatException{
+        logger.info("ScheduledJobService reschedule(taskName: {}, newCrontab: {})", taskName, newCrontab);
+
+        PeriodicTask periodicTask = periodicTaskService.updateCrontabByTaskName(taskName, newCrontab);
+        return schedule(periodicTask);
+    }
+
     private ScheduledJob findSchedulerByTaskName(String taskName){
-        logger.info("ScheduledJobRegistryService findSchedulerByTaskName(taskName: {})", taskName);
+        logger.debug("ScheduledJobService findSchedulerByTaskName(taskName: {})", taskName);
 
         return scheduledJobRegistry.get(taskName);
     }

@@ -30,6 +30,12 @@
             <version>${groovy.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.thekraken</groupId>
+            <artifactId>grok</artifactId>
+            <version>0.1.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -33,7 +33,7 @@ public class ScheduledJobRegistry extends Registry<ScheduledJob> {
         logger.info("ScheduledJobRegistry put(scheduledJob: {})", scheduledJob);
         PeriodicTask task = scheduledJob.getTask();
 
-        // find duplicated ones
+        // find duplicated ones by ScheduledJob.PeriodicTask.id
         Map<String, ScheduledJob> duplicates = registry.entrySet().stream().filter(map -> map.getValue().getTask().getId() == task.getId()).collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
         logger.info("Duplicated registries: {}", duplicates);
         for (String key: duplicates.keySet()) {
