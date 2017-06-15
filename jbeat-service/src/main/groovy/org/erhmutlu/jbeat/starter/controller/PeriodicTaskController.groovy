@@ -1,0 +1,55 @@
+package org.erhmutlu.jbeat.starter.controller
+
+import org.erhmutlu.jbeat.api.ParameterValidator
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RestController
+
+
+@RestController
+class PeriodicTaskController {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass())
+
+    /**
+     *
+     * Creates a PeriodicTask instance on db
+     * Schedules a job
+     *
+     * RequestBody params:
+     *  crontab: String
+     *  queue: String
+     *  taskName: String
+     *  isActive: String:[Optional:Default=true]
+     *  params: Json[Optional:Default=Empty]
+     *  description: String:[Optional:Default=null]
+     *
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "/schedule",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE )
+    Map schedule(@RequestBody Map map) {
+        logger.info("PeriodicTaskController schedule(body: {})", map)
+
+        String crontab = map.get("crontab")
+        String queue = map.get("queue")
+        String taskName = map.get("taskName")
+        Boolean isActive = map.getOrDefault("isActive", true)
+        Map<String, Object> params = map.getOrDefault("params", new HashMap())
+        String description = map.get("description")
+
+        logger.info("crontab: {}, queue: {}, taskName: {}, isActive: {}, description: {}, params: {}", crontab, queue, taskName, isActive, description, params)
+        ParameterValidator.validate("crontab", crontab)
+        ParameterValidator.validate("queue", queue)
+        ParameterValidator.validate("taskName", taskName)
+        ParameterValidator.validate("isActive", isActive)
+
+        ["STATUS": "OK"]
+    }
+
+
+}

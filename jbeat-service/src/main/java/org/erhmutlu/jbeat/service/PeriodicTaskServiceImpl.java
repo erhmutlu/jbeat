@@ -1,9 +1,9 @@
 package org.erhmutlu.jbeat.service;
 
 import org.erhmutlu.jbeat.api.exceptions.JBeatException;
+import org.erhmutlu.jbeat.api.exceptions.JBeatExceptionCodes;
 import org.erhmutlu.jbeat.persistency.dao.PeriodicTaskDao;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
-import org.erhmutlu.jbeat.service.exceptions.JBeatExceptionCodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

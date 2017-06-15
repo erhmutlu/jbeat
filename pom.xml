@@ -38,6 +38,8 @@
         <gmaven.provider>2.0</gmaven.provider>
 
         <plugin.gmaven.version>1.5</plugin.gmaven.version>
+
+        <commons.lang3.version>3.4</commons.lang3.version>
     </properties>
 
     <dependencies>
