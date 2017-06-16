@@ -13,6 +13,12 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <!--JBeat-->
+        <dependency>
+            <groupId>org.erhmutlu</groupId>
+            <artifactId>jbeat-persistency</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

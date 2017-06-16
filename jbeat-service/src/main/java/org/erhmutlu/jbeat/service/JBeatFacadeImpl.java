@@ -1,8 +1,8 @@
 package org.erhmutlu.jbeat.service;
 
-import org.erhmutlu.jbeat.api.JBeatFacade;
 import org.erhmutlu.jbeat.api.exceptions.JBeatException;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
+import org.erhmutlu.jbeat.service.schedule.ScheduledJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -29,15 +29,14 @@ public class JBeatFacadeImpl implements JBeatFacade {
 
     @Override
     @Transactional(rollbackFor = {JBeatException.class})
-    public void scheduleNewTask(String taskName, String queue, String crontab, Map params, Boolean isActive, String description) throws JBeatException {
+    public ScheduledJob scheduleNewTask(String taskName, String queue, String crontab, Map params, Boolean isActive, String description) throws JBeatException {
         logger.info("JBeatFacade createPeriodicTask(taskName: {}, crontab: {}, isActive: {})",
                 taskName, crontab, isActive);
 
         PeriodicTask periodicTask = periodicTaskService.createPeriodicTask(taskName, queue, crontab, params, isActive, description);
         logger.debug("Created PeriodicTask: {}", periodicTask);
 
-
-
+        return scheduledJobService.schedule(periodicTask);
     }
 
 

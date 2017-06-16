@@ -1,8 +1,8 @@
 package org.erhmutlu.jbeat.starter.controller
 
-import org.erhmutlu.jbeat.api.JBeatFacade
+import org.erhmutlu.jbeat.service.JBeatFacade
 import org.erhmutlu.jbeat.api.ParameterValidator
-import org.erhmutlu.jbeat.service.ScheduledJobService
+import org.erhmutlu.jbeat.service.schedule.ScheduledJob
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
@@ -39,7 +39,7 @@ class PeriodicTaskController {
      * @return
      */
     @RequestMapping(value = "/schedule",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE )
-    Map schedule(@RequestBody Map map) {
+    ScheduledJob schedule(@RequestBody Map map) {
         logger.info("PeriodicTaskController schedule(body: {})", map)
 
         String crontab = map.get("crontab")
@@ -55,9 +55,7 @@ class PeriodicTaskController {
         ParameterValidator.validate("taskName", taskName)
         ParameterValidator.validate("isActive", isActive)
 
-        jBeatFacade.scheduleNewTask(taskName, queue, crontab, params, isActive, description)
-
-        ["STATUS": "OK"]
+        return jBeatFacade.scheduleNewTask(taskName, queue, crontab, params, isActive, description)
     }
 
 
