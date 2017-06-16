@@ -1,6 +1,8 @@
 package org.erhmutlu.jbeat.starter.controller
 
+import org.erhmutlu.jbeat.api.JBeatFacade
 import org.erhmutlu.jbeat.api.ParameterValidator
+import org.erhmutlu.jbeat.service.ScheduledJobService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
@@ -15,7 +17,12 @@ class PeriodicTaskController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass())
 
-    /**
+    private JBeatFacade jBeatFacade;
+
+    PeriodicTaskController(JBeatFacade jBeatFacade) {
+        this.jBeatFacade = jBeatFacade
+    }
+/**
      *
      * Creates a PeriodicTask instance on db
      * Schedules a job
@@ -47,6 +54,8 @@ class PeriodicTaskController {
         ParameterValidator.validate("queue", queue)
         ParameterValidator.validate("taskName", taskName)
         ParameterValidator.validate("isActive", isActive)
+
+        jBeatFacade.scheduleNewTask(taskName, queue, crontab, params, isActive, description)
 
         ["STATUS": "OK"]
     }
