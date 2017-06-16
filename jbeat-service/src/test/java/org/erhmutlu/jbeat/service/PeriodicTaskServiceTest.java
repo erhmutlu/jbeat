@@ -2,6 +2,7 @@ package org.erhmutlu.jbeat.service;
 
 import org.assertj.core.api.Assertions;
 import org.erhmutlu.jbeat.api.exceptions.JBeatException;
+import org.erhmutlu.jbeat.api.exceptions.JBeatExceptionCodes;
 import org.erhmutlu.jbeat.persistency.dao.PeriodicTaskDao;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.config.BaseTest;
@@ -37,7 +38,7 @@ public class PeriodicTaskServiceTest extends BaseTest {
         Assert.assertNotNull(fromDb);
         Assert.assertEquals(periodicTask.getId(), fromDb.getId());
 
-        Assertions.assertThatThrownBy(() -> periodicTaskService.getActiveTaskByName("DUMMY")).isInstanceOf(JBeatException.class);
+        Assertions.assertThatThrownBy(() -> periodicTaskService.getActiveTaskByName("DUMMY")).isInstanceOf(JBeatException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.PERIODIC_TASK_NOT_FOUND_BY_TASKNAME);
     }
 
     @Test
@@ -78,7 +79,7 @@ public class PeriodicTaskServiceTest extends BaseTest {
                 random.getCrontab(),
                 random.getParams(),
                 random.getDescription()
-        )).isInstanceOf(JBeatException.class);
+        )).isInstanceOf(JBeatException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.PERIODIC_TASK_ALREADY_EXIST);;
     }
 
 }

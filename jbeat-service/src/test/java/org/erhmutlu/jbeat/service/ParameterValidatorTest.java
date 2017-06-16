@@ -2,6 +2,7 @@ package org.erhmutlu.jbeat.service;
 
 import org.assertj.core.api.Assertions;
 import org.erhmutlu.jbeat.api.ParameterValidator;
+import org.erhmutlu.jbeat.api.exceptions.JBeatExceptionCodes;
 import org.erhmutlu.jbeat.api.exceptions.ValidationException;
 import org.junit.Test;
 
@@ -27,8 +28,8 @@ public class ParameterValidatorTest {
 
     @Test
     public void testValidateException() throws ValidationException {
-        Assertions.assertThatThrownBy(() -> ParameterValidator.validate("test", "")).isInstanceOf(ValidationException.class);
-        Assertions.assertThatThrownBy(() -> ParameterValidator.validate("test", " ")).isInstanceOf(ValidationException.class);
-        Assertions.assertThatThrownBy(() -> ParameterValidator.validate("test", null)).isInstanceOf(ValidationException.class);
+        Assertions.assertThatThrownBy(() -> ParameterValidator.validate("test", "")).isInstanceOf(ValidationException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.EMPTY_PARAMETER);
+        Assertions.assertThatThrownBy(() -> ParameterValidator.validate("test", " ")).isInstanceOf(ValidationException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.EMPTY_PARAMETER);;
+        Assertions.assertThatThrownBy(() -> ParameterValidator.validate("test", null)).isInstanceOf(ValidationException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.NULL_PARAMETER);;
     }
 }
