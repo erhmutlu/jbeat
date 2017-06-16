@@ -27,9 +27,9 @@ public class PeriodicTaskServiceImpl implements PeriodicTaskService {
     }
 
     @Override
-    public PeriodicTask createPeriodicTask(String taskName, String queue, String crontab, Map params, Boolean isActive, String description) throws JBeatException{
-        logger.info("PeriodicTaskService create (taskName: {}, crontab: {}, isActive: {})",
-                taskName, crontab, isActive);
+    public PeriodicTask createPeriodicTask(String taskName, String queue, String crontab, Map params, String description) throws JBeatException{
+        logger.info("PeriodicTaskService create (taskName: {}, crontab: {})",
+                taskName, crontab);
 
         Boolean exist = checkExistByTaskNameOrQueue(taskName, queue);
         if(exist){
@@ -41,7 +41,7 @@ public class PeriodicTaskServiceImpl implements PeriodicTaskService {
         periodicTask.setQueue(queue);
         periodicTask.setCrontab(crontab);
         periodicTask.setParams(params);
-        periodicTask.setActive(isActive);
+        periodicTask.setActive(true);
         periodicTask.setDescription(description);
         return periodicTaskDao.save(periodicTask);
     }

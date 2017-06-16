@@ -9,5 +9,5 @@ import java.util.Map;
  * Created by erhmutlu on 16/06/17.
  */
 public interface JBeatFacade {
-    ScheduledJob scheduleNewTask(String taskName, String queue, String crontab, Map params, Boolean isActive, String description) throws JBeatException;
+    ScheduledJob scheduleNewTask(String taskName, String queue, String crontab, Map params, String description) throws JBeatException;
 }

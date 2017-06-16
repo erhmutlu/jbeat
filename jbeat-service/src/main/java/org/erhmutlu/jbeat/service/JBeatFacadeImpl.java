@@ -29,11 +29,11 @@ public class JBeatFacadeImpl implements JBeatFacade {
 
     @Override
     @Transactional(rollbackFor = {JBeatException.class})
-    public ScheduledJob scheduleNewTask(String taskName, String queue, String crontab, Map params, Boolean isActive, String description) throws JBeatException {
-        logger.info("JBeatFacade createPeriodicTask(taskName: {}, crontab: {}, isActive: {})",
-                taskName, crontab, isActive);
+    public ScheduledJob scheduleNewTask(String taskName, String queue, String crontab, Map params, String description) throws JBeatException {
+        logger.info("JBeatFacade createPeriodicTask(taskName: {}, crontab: {})",
+                taskName, crontab);
 
-        PeriodicTask periodicTask = periodicTaskService.createPeriodicTask(taskName, queue, crontab, params, isActive, description);
+        PeriodicTask periodicTask = periodicTaskService.createPeriodicTask(taskName, queue, crontab, params, description);
         logger.debug("Created PeriodicTask: {}", periodicTask);
 
         return scheduledJobService.schedule(periodicTask);

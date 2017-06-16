@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface PeriodicTaskService {
 
-    PeriodicTask createPeriodicTask(String taskName, String queue, String crontab, Map params, Boolean isActive, String description) throws JBeatException;
+    PeriodicTask createPeriodicTask(String taskName, String queue, String crontab, Map params, String description) throws JBeatException;
 
     PeriodicTask updateCrontabByTaskName(String taskName, String newCrontab) throws JBeatException;
 

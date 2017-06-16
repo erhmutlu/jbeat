@@ -65,7 +65,6 @@ public class PeriodicTaskServiceTest extends BaseTest {
                 random.getQueue(),
                 random.getCrontab(),
                 random.getParams(),
-                random.getActive(),
                 random.getDescription()
         );
 
@@ -78,7 +77,6 @@ public class PeriodicTaskServiceTest extends BaseTest {
                 random.getQueue(),
                 random.getCrontab(),
                 random.getParams(),
-                random.getActive(),
                 random.getDescription()
         )).isInstanceOf(JBeatException.class);
     }

@@ -23,39 +23,53 @@ class PeriodicTaskController {
         this.jBeatFacade = jBeatFacade
     }
 /**
-     *
-     * Creates a PeriodicTask instance on db
-     * Schedules a job
-     *
-     * RequestBody params:
-     *  crontab: String
-     *  queue: String
-     *  taskName: String
-     *  isActive: String:[Optional:Default=true]
-     *  params: Json[Optional:Default=Empty]
-     *  description: String:[Optional:Default=null]
-     *
-     * @param map
-     * @return
-     */
-    @RequestMapping(value = "/schedule",  method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE )
+ *
+ * Creates a PeriodicTask instance on db
+ * Schedules a job
+ *
+ * RequestBody params:
+ *  crontab: String
+ *  queue: String
+ *  taskName: String
+ *  params: Json[Optional:Default=Empty]
+ *  description: String:[Optional:Default=null]
+ *
+ * Returns created task:
+ *
+ * {
+     "task": {
+         "id": 200,
+         "crontab": "* * * * * *",
+         "queue": "test-queue1",
+         "taskName": "test-task1",
+         "params": {},
+         "totalRun": 0,
+         "lastRun": null,
+         "description": "Test Test",
+         "active": true
+         }
+    }
+ *
+ *
+ * @param map
+ * @return
+ */
+    @RequestMapping(value = "/schedule", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     ScheduledJob schedule(@RequestBody Map map) {
         logger.info("PeriodicTaskController schedule(body: {})", map)
 
         String crontab = map.get("crontab")
         String queue = map.get("queue")
         String taskName = map.get("taskName")
-        Boolean isActive = map.getOrDefault("isActive", true)
         Map<String, Object> params = map.getOrDefault("params", new HashMap())
         String description = map.get("description")
 
-        logger.info("crontab: {}, queue: {}, taskName: {}, isActive: {}, description: {}, params: {}", crontab, queue, taskName, isActive, description, params)
+        logger.info("crontab: {}, queue: {}, taskName: {}, description: {}, params: {}", crontab, queue, taskName, description, params)
         ParameterValidator.validate("crontab", crontab)
         ParameterValidator.validate("queue", queue)
         ParameterValidator.validate("taskName", taskName)
-        ParameterValidator.validate("isActive", isActive)
 
-        return jBeatFacade.scheduleNewTask(taskName, queue, crontab, params, isActive, description)
+        return jBeatFacade.scheduleNewTask(taskName, queue, crontab, params, description)
     }
 
 
