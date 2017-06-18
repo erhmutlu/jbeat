@@ -38,7 +38,7 @@ public class ScheduledJobServiceTest extends BaseTest {
     PeriodicTaskService periodicTaskService;
 
     @Test
-    public void testPutRegistry() throws InterruptedException {
+    public void testMe() throws InterruptedException {
         logger.info("Test begins");
 
         PeriodicTask periodicTask = randomPeriodicTaskInstance();
@@ -63,6 +63,9 @@ public class ScheduledJobServiceTest extends BaseTest {
         // new ScheduledJob should be instantiated in the registry and the old one should be removed from registry!
         Assert.assertNull(registry.get(oldTaskName));
 
+        //Disable
+        scheduledJobService.disable(periodicTask.getTaskName());
+        Assert.assertNull(registry.get(periodicTask.getTaskName()));
     }
 
 }

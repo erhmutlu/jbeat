@@ -50,16 +50,16 @@ public class PeriodicTaskServiceImpl implements PeriodicTaskService {
     public PeriodicTask updateCrontabByTaskName(String taskName, String newCrontab) throws JBeatException{
         logger.info("PeriodicTaskService updateCrontabByTaskName (taskName: {}, newCrontab: {})", taskName, newCrontab);
 
-        PeriodicTask periodicTask = getActiveTaskByName(taskName);
+        PeriodicTask periodicTask = getTaskByName(taskName);
         periodicTask.setCrontab(newCrontab);
         periodicTask.setActive(true);
         return periodicTaskDao.save(periodicTask);
     }
 
     @Override
-    public PeriodicTask getActiveTaskByName(String taskName) throws JBeatException{
-        logger.info("PeriodicTaskService getActiveTaskByName {}", taskName);
-        PeriodicTask periodicTask = periodicTaskDao.findByTaskNameAndIsActiveIsTrue(taskName);
+    public PeriodicTask getTaskByName(String taskName) throws JBeatException{
+        logger.info("PeriodicTaskService getTaskByName {}", taskName);
+        PeriodicTask periodicTask = periodicTaskDao.findByTaskName(taskName);
 
         if(periodicTask == null){
             throw new JBeatException(JBeatExceptionCodes.PERIODIC_TASK_NOT_FOUND_BY_TASKNAME, new Object[]{taskName});
@@ -70,11 +70,11 @@ public class PeriodicTaskServiceImpl implements PeriodicTaskService {
     }
 
     @Override
-    public PeriodicTask getActiveTaskByNameOrQueue(String taskName, String queue) throws JBeatException{
-        logger.info("PeriodicTaskService getByTaskNameOrQueue taskName: {}, queue: {}", taskName, queue);
+    public PeriodicTask getTaskByNameOrQueue(String taskName, String queue) throws JBeatException{
+        logger.info("PeriodicTaskService getTaskByNameOrQueue taskName: {}, queue: {}", taskName, queue);
         List<PeriodicTask> actives = periodicTaskDao.findByTaskNameOrQueueAndIsActiveIsTrue(taskName, queue);
         if(actives.size() == 0){
-            throw new JBeatException(JBeatExceptionCodes.PERIODIC_TASK_NOT_FOUND_BY_TASKNAME, new Object[]{taskName});
+            throw new JBeatException(JBeatExceptionCodes.PERIODIC_TASK_NOT_FOUND_BY_TASKNAME_OR_QUEUE, new Object[]{taskName});
         }else if(actives.size() > 1){
             throw new JBeatException(JBeatExceptionCodes.MULTIPLE_PERIODIC_TASK_FOUND);
         }
@@ -87,11 +87,19 @@ public class PeriodicTaskServiceImpl implements PeriodicTaskService {
     @Override
     public boolean checkExistByTaskNameOrQueue(String taskName, String queue){
         try {
-            getActiveTaskByNameOrQueue(taskName, queue);
+            getTaskByNameOrQueue(taskName, queue);
             //if a JBeatException is not thrown, any PeriodicTask is found with given values
             return true;
         } catch (JBeatException e) {
             return false;
         }
+    }
+
+    @Override
+    public PeriodicTask setActiveByTaskName(String taskName, Boolean isActive) throws JBeatException{
+        logger.info("PeriodicTaskService setActiveByTaskName taskName: {}, isActive: {}", taskName, isActive);
+        PeriodicTask periodicTask = getTaskByName(taskName);
+        periodicTask.setActive(isActive);
+        return periodicTaskDao.save(periodicTask);
     }
 }

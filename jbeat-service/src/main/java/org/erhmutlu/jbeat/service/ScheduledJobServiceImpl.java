@@ -59,8 +59,26 @@ public class ScheduledJobServiceImpl implements ScheduledJobService {
     public ScheduledJob reschedule(String taskName, String newCrontab) throws JBeatException{
         logger.info("ScheduledJobService reschedule(taskName: {}, newCrontab: {})", taskName, newCrontab);
 
+        //TODO extract this to JBeatFacade
         PeriodicTask periodicTask = periodicTaskService.updateCrontabByTaskName(taskName, newCrontab);
         return schedule(periodicTask);
+    }
+
+    @Override
+    public void disable(String taskName){
+        logger.info("ScheduledJobService disable(taskName: {}", taskName);
+
+        ScheduledJob job = scheduledJobRegistry.get(taskName);
+        if(job == null){
+            logger.warn("Task was not found in the registry.\nWarning will be ignored.");
+            return;
+        }
+
+        job.stop();
+        logger.info("Task is stopped");
+        scheduledJobRegistry.remove(taskName);
+        logger.info("Task is removed from registry");
+
     }
 
     private ScheduledJob findSchedulerByTaskName(String taskName){

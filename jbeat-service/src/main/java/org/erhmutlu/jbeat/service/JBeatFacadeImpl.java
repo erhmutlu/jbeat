@@ -28,7 +28,7 @@ public class JBeatFacadeImpl implements JBeatFacade {
     }
 
     @Override
-    @Transactional(rollbackFor = {JBeatException.class})
+    @Transactional(rollbackFor = {Exception.class})
     public ScheduledJob scheduleNewTask(String taskName, String queue, String crontab, Map params, String description) throws JBeatException {
         logger.info("JBeatFacade createPeriodicTask(taskName: {}, crontab: {})",
                 taskName, crontab);
@@ -37,6 +37,17 @@ public class JBeatFacadeImpl implements JBeatFacade {
         logger.debug("Created PeriodicTask: {}", periodicTask);
 
         return scheduledJobService.schedule(periodicTask);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public void disableTask(String taskName) throws JBeatException{
+        logger.info("JBeatFacade disableTask(taskName: {})", taskName);
+
+        periodicTaskService.setActiveByTaskName(taskName, false);
+        scheduledJobService.disable(taskName);
+
+        logger.info("PeriodicTask: {} is disabled", taskName);
     }
 
 

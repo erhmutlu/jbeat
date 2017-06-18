@@ -6,6 +6,7 @@ import org.erhmutlu.jbeat.service.schedule.ScheduledJob
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -54,7 +55,7 @@ class PeriodicTaskController {
  * @param map
  * @return
  */
-    @RequestMapping(value = "/schedule", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/tasks/schedule", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     ScheduledJob schedule(@RequestBody Map map) {
         logger.info("PeriodicTaskController schedule(body: {})", map)
 
@@ -70,6 +71,15 @@ class PeriodicTaskController {
         ParameterValidator.validate("taskName", taskName)
 
         return jBeatFacade.scheduleNewTask(taskName, queue, crontab, params, description)
+    }
+
+    @RequestMapping(value = "/tasks/{taskName:.+}/disable", method = RequestMethod.PUT)
+    public Map disable(@PathVariable(name = "taskName") String taskName) {
+        logger.info("PeriodicTaskController disable(taskName: {})", taskName)
+
+        jBeatFacade.disableTask(taskName);
+
+        return ["result": "OK"];
     }
 
 

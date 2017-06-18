@@ -14,9 +14,11 @@ public interface PeriodicTaskService {
 
     PeriodicTask updateCrontabByTaskName(String taskName, String newCrontab) throws JBeatException;
 
-    PeriodicTask getActiveTaskByName(String taskName) throws JBeatException;
+    PeriodicTask getTaskByName(String taskName) throws JBeatException;
 
-    PeriodicTask getActiveTaskByNameOrQueue(String taskName, String queue) throws JBeatException;
+    PeriodicTask getTaskByNameOrQueue(String taskName, String queue) throws JBeatException;
 
     boolean checkExistByTaskNameOrQueue(String taskName, String queue);
+
+    PeriodicTask setActiveByTaskName(String taskName, Boolean isActive) throws JBeatException;
 }

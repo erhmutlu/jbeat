@@ -12,4 +12,6 @@ public interface ScheduledJobService {
     ScheduledJob schedule(PeriodicTask periodicTask);
 
     ScheduledJob reschedule(String taskName, String newCrontab) throws JBeatException;
+
+    void disable(String taskName);
 }

@@ -12,15 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
 /**
  * Created by erhmutlu on 15/06/17.
  */
 public class PeriodicTaskServiceTest extends BaseTest {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
-
 
     @Autowired
     PeriodicTaskService periodicTaskService;
@@ -34,11 +31,11 @@ public class PeriodicTaskServiceTest extends BaseTest {
         PeriodicTask periodicTask = randomPeriodicTaskInstance();
         periodicTask = periodicTaskDao.save(periodicTask);
 
-        PeriodicTask fromDb = periodicTaskService.getActiveTaskByName(periodicTask.getTaskName());
+        PeriodicTask fromDb = periodicTaskService.getTaskByName(periodicTask.getTaskName());
         Assert.assertNotNull(fromDb);
         Assert.assertEquals(periodicTask.getId(), fromDb.getId());
 
-        Assertions.assertThatThrownBy(() -> periodicTaskService.getActiveTaskByName("DUMMY")).isInstanceOf(JBeatException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.PERIODIC_TASK_NOT_FOUND_BY_TASKNAME);
+        Assertions.assertThatThrownBy(() -> periodicTaskService.getTaskByName("DUMMY")).isInstanceOf(JBeatException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.PERIODIC_TASK_NOT_FOUND_BY_TASKNAME);
     }
 
     @Test
