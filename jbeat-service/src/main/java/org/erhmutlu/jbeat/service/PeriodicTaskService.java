@@ -21,4 +21,6 @@ public interface PeriodicTaskService {
     boolean checkExistByTaskNameOrQueue(String taskName, String queue);
 
     PeriodicTask setActiveByTaskName(String taskName, Boolean isActive) throws JBeatException;
+
+    void removeByTaskName(String taskName) throws JBeatException;
 }

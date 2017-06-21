@@ -72,7 +72,14 @@ class PeriodicTaskController {
 
         return jBeatFacade.scheduleNewTask(taskName, queue, crontab, params, description)
     }
-
+/**
+ *
+ * Disables a PeriodicTask
+ * PeriodicTask row is remains on db.
+ *
+ * @param taskName
+ * @return
+ */
     @RequestMapping(value = "/tasks/{taskName:.+}/disable", method = RequestMethod.PUT)
     public Map disable(@PathVariable(name = "taskName") String taskName) {
         logger.info("PeriodicTaskController disable(taskName: {})", taskName)
@@ -82,5 +89,21 @@ class PeriodicTaskController {
         return ["result": "OK"];
     }
 
+    /**
+     *
+     * Deletes PeriodicTask and disables Scheduled Job.
+     *
+     *
+     * @param taskName
+     * @return
+     */
+    @RequestMapping(value = "/tasks/{taskName:.+}/remove", method = RequestMethod.DELETE)
+    public Map remove(@PathVariable(name = "taskName") String taskName) {
+        logger.info("PeriodicTaskController disable(taskName: {})", taskName)
+
+        jBeatFacade.removeTask(taskName);
+
+        return ["result": "OK"];
+    }
 
 }

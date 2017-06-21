@@ -55,7 +55,7 @@ public class PeriodicTaskServiceTest extends BaseTest {
     }
 
     @Test
-    public void testCreate() throws JBeatException {
+    public void testCreateAndRemove() throws JBeatException {
         logger.info("testCreate begins");
         PeriodicTask random = randomPeriodicTaskInstance();
         PeriodicTask periodicTask = periodicTaskService.createPeriodicTask(
@@ -76,7 +76,13 @@ public class PeriodicTaskServiceTest extends BaseTest {
                 random.getCrontab(),
                 random.getParams(),
                 random.getDescription()
-        )).isInstanceOf(JBeatException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.PERIODIC_TASK_ALREADY_EXIST);;
+        )).isInstanceOf(JBeatException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.PERIODIC_TASK_ALREADY_EXIST);
+
+
+        // test remove
+        periodicTaskService.removeByTaskName(random.getTaskName());
+        Assert.assertNull("task should not found in db", periodicTaskDao.findByTaskName(random.getTaskName()));
+        Assertions.assertThatThrownBy(() -> periodicTaskService.removeByTaskName(random.getTaskName())).isInstanceOf(JBeatException.class).hasFieldOrPropertyWithValue("code", JBeatExceptionCodes.PERIODIC_TASK_NOT_FOUND_BY_TASKNAME);
     }
 
 }

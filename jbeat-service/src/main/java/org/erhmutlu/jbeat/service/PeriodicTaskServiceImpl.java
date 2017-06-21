@@ -102,4 +102,11 @@ public class PeriodicTaskServiceImpl implements PeriodicTaskService {
         periodicTask.setActive(isActive);
         return periodicTaskDao.save(periodicTask);
     }
+
+    @Override
+    public void removeByTaskName(String taskName) throws JBeatException{
+        logger.info("PeriodicTaskService removeByTaskName {}", taskName);
+        PeriodicTask periodicTask = getTaskByName(taskName);
+        periodicTaskDao.delete(periodicTask);
+    }
 }
