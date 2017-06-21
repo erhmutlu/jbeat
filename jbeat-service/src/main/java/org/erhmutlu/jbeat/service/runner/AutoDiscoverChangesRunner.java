@@ -27,6 +27,8 @@ public class AutoDiscoverChangesRunner extends JBeatRunner{
             logger.info("AutoDiscoverInterval: {} !", autoDiscoverInterval);
 
             // TODO initialize autodiscover changes job
+        }else {
+            logger.info("AutoDiscoverChanges is disabled!");
         }
 
     }
