@@ -52,6 +52,17 @@ public class JBeatFacadeImpl implements JBeatFacade {
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
+    public void enableTask(String taskName) throws JBeatException{
+        logger.info("JBeatFacade enableTask(taskName: {})", taskName);
+
+        PeriodicTask periodicTask = periodicTaskService.setActiveByTaskName(taskName, true);
+        scheduledJobService.schedule(periodicTask);
+
+        logger.info("PeriodicTask: {} is enabled", taskName);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
     public void removeTask(String taskName) throws JBeatException{
         logger.info("JBeatFacade removeTask(taskName: {})", taskName);
 

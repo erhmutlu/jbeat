@@ -91,6 +91,22 @@ class PeriodicTaskController {
 
     /**
      *
+     * Enables a PeriodicTask
+     *
+     * @param taskName
+     * @return
+     */
+    @RequestMapping(value = "/tasks/{taskName:.+}/enable", method = RequestMethod.PUT)
+    public Map enable(@PathVariable(name = "taskName") String taskName) {
+        logger.info("PeriodicTaskController disable(taskName: {})", taskName)
+
+        jBeatFacade.enableTask(taskName);
+
+        return ["result": "OK"];
+    }
+
+    /**
+     *
      * Deletes PeriodicTask and disables Scheduled Job.
      *
      *

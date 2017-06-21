@@ -16,5 +16,8 @@ public interface JBeatFacade {
     void disableTask(String taskName) throws JBeatException;
 
     @Transactional(rollbackFor = {Exception.class})
+    void enableTask(String taskName) throws JBeatException;
+
+    @Transactional(rollbackFor = {Exception.class})
     void removeTask(String taskName) throws JBeatException;
 }
