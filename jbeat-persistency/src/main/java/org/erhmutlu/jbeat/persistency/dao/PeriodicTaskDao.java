@@ -11,8 +11,12 @@ import java.util.List;
 public interface PeriodicTaskDao extends CrudRepository<PeriodicTask, Long>{
 
     PeriodicTask findByTaskName(String taskName);
+
     PeriodicTask findByTaskNameAndIsActiveIsTrue(String taskName);
 
+    List<PeriodicTask> findByIsActiveIsTrue();
+
     List<PeriodicTask> findByTaskNameOrQueueAndIsActiveIsTrue(String taskName, String queue);
+
 
 }

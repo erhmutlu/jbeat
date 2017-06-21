@@ -109,4 +109,11 @@ public class PeriodicTaskServiceImpl implements PeriodicTaskService {
         PeriodicTask periodicTask = getTaskByName(taskName);
         periodicTaskDao.delete(periodicTask);
     }
+
+    @Override
+    public List<PeriodicTask> findAllActives(){
+        logger.info("PeriodicTaskService findAllActives");
+
+        return periodicTaskDao.findByIsActiveIsTrue();
+    }
 }

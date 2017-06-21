@@ -3,6 +3,7 @@ package org.erhmutlu.jbeat.service;
 import org.erhmutlu.jbeat.api.exceptions.JBeatException;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,4 +24,6 @@ public interface PeriodicTaskService {
     PeriodicTask setActiveByTaskName(String taskName, Boolean isActive) throws JBeatException;
 
     void removeByTaskName(String taskName) throws JBeatException;
+
+    List<PeriodicTask> findAllActives();
 }
