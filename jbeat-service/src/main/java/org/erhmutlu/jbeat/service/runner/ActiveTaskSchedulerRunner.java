@@ -1,5 +1,6 @@
 package org.erhmutlu.jbeat.service.runner;
 
+import org.erhmutlu.jbeat.api.JBeatProperties;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.PeriodicTaskService;
 import org.erhmutlu.jbeat.service.ScheduledJobService;
@@ -15,8 +16,8 @@ import java.util.List;
 public class ActiveTaskSchedulerRunner extends JBeatRunner {
 
     @PersistenceConstructor
-    public ActiveTaskSchedulerRunner(PeriodicTaskService periodicTaskService, ScheduledJobService scheduledJobService) {
-        super(periodicTaskService, scheduledJobService);
+    public ActiveTaskSchedulerRunner(JBeatProperties jBeatProperties, PeriodicTaskService periodicTaskService, ScheduledJobService scheduledJobService) {
+        super(jBeatProperties, periodicTaskService, scheduledJobService);
     }
 
     @Override
