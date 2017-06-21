@@ -25,5 +25,7 @@ public interface PeriodicTaskService {
 
     void removeByTaskName(String taskName) throws JBeatException;
 
-    List<PeriodicTask> findAllActives();
+    List<PeriodicTask> getAllActives();
+
+    PeriodicTask getTaskById(Long id) throws JBeatException;
 }

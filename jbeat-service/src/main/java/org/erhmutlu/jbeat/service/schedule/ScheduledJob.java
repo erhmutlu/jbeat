@@ -1,5 +1,6 @@
 package org.erhmutlu.jbeat.service.schedule;
 
+import org.erhmutlu.jbeat.api.exceptions.JBeatException;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.PeriodicTaskService;
 import org.erhmutlu.jbeat.service.RabbitWriterService;

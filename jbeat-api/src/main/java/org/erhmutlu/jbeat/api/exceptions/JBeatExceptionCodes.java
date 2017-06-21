@@ -16,5 +16,7 @@ public class JBeatExceptionCodes {
     public static final int MULTIPLE_PERIODIC_TASK_FOUND = 52282002;
     public static final int PERIODIC_TASK_ALREADY_EXIST = 52282003;
     public static final int PERIODIC_TASK_NOT_FOUND_BY_TASKNAME_OR_QUEUE = 52282004;
+    public static final int PERIODIC_TASK_NOT_FOUND_BY_ID = 52282005;
+
 
 }

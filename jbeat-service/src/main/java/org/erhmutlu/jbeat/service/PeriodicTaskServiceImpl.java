@@ -111,9 +111,22 @@ public class PeriodicTaskServiceImpl implements PeriodicTaskService {
     }
 
     @Override
-    public List<PeriodicTask> findAllActives(){
-        logger.info("PeriodicTaskService findAllActives");
+    public List<PeriodicTask> getAllActives(){
+        logger.info("PeriodicTaskService getAllActives");
 
         return periodicTaskDao.findByIsActiveIsTrue();
+    }
+
+    @Override
+    public PeriodicTask getTaskById(Long id) throws JBeatException{
+        logger.info("PeriodicTaskService getTaskById {}", id);
+        PeriodicTask periodicTask = periodicTaskDao.findOne(id);
+
+        if(periodicTask == null){
+            throw new JBeatException(JBeatExceptionCodes.PERIODIC_TASK_NOT_FOUND_BY_ID, new Object[]{id});
+        }
+
+        logger.debug("PeriodicTask: {} is found", periodicTask);
+        return periodicTask;
     }
 }

@@ -23,38 +23,39 @@ class PeriodicTaskController {
     PeriodicTaskController(JBeatFacade jBeatFacade) {
         this.jBeatFacade = jBeatFacade
     }
-/**
- *
- * Creates a PeriodicTask instance on db
- * Schedules a job
- *
- * RequestBody params:
- *  crontab: String
- *  queue: String
- *  taskName: String
- *  params: Json[Optional:Default=Empty]
- *  description: String:[Optional:Default=null]
- *
- * Returns created task:
- *
- * {
-     "task": {
-         "id": 200,
-         "crontab": "* * * * * *",
-         "queue": "test-queue1",
-         "taskName": "test-task1",
-         "params": {},
-         "totalRun": 0,
-         "lastRun": null,
-         "description": "Test Test",
-         "active": true
-         }
-    }
- *
- *
- * @param map
- * @return
- */
+
+    /**
+     *
+     * Creates a PeriodicTask instance on db
+     * Schedules a job
+     *
+     * RequestBody params:
+     *  crontab: String
+     *  queue: String
+     *  taskName: String
+     *  params: Json[Optional:Default=Empty]
+     *  description: String:[Optional:Default=null]
+     *
+     * Returns created task:
+     *
+     {
+        "task": {
+             "id": 200,
+             "crontab": "* * * * * *",
+             "queue": "test-queue1",
+             "taskName": "test-task1",
+             "params": {},
+             "totalRun": 0,
+             "lastRun": null,
+             "description": "Test Test",
+             "active": true
+        }
+     }
+     *
+     *
+     * @param map
+     * @return
+     */
     @RequestMapping(value = "/tasks/schedule", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     ScheduledJob schedule(@RequestBody Map map) {
         logger.info("PeriodicTaskController schedule(body: {})", map)
@@ -72,14 +73,15 @@ class PeriodicTaskController {
 
         return jBeatFacade.scheduleNewTask(taskName, queue, crontab, params, description)
     }
-/**
- *
- * Disables a PeriodicTask
- * PeriodicTask row is remains on db.
- *
- * @param taskName
- * @return
- */
+
+    /**
+     *
+     * Disables a PeriodicTask
+     * PeriodicTask row is remains on db.
+     *
+     * @param taskName
+     * @return
+     */
     @RequestMapping(value = "/tasks/{taskName:.+}/disable", method = RequestMethod.PUT)
     public Map disable(@PathVariable(name = "taskName") String taskName) {
         logger.info("PeriodicTaskController disable(taskName: {})", taskName)
