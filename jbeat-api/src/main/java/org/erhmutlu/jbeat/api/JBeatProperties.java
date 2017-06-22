@@ -12,13 +12,9 @@ import javax.validation.Valid;
 @Validated
 public class JBeatProperties {
 
-    private Runner runner;
+    private Runner runner = new Runner();
 
     public Runner getRunner() {
-        if(runner == null){
-            //Runner with default values
-            runner = new Runner();
-        }
         return runner;
     }
 
