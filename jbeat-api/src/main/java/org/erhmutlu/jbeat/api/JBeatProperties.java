@@ -15,6 +15,10 @@ public class JBeatProperties {
     private Runner runner;
 
     public Runner getRunner() {
+        if(runner == null){
+            //Runner with default values
+            runner = new Runner();
+        }
         return runner;
     }
 
