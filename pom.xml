@@ -10,10 +10,10 @@
     <modules>
         <module>jbeat-persistency</module>
         <module>jbeat-service</module>
-        <module>jbeat-starter</module>
+        <module>jbeat-app</module>
         <module>jbeat-api</module>
         <module>jbeat-autoconfigure</module>
-        <module>jbeat-boot-starter</module>
+        <module>jbeat-starter</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -85,7 +85,7 @@
 
             <dependency>
                 <groupId>org.erhmutlu</groupId>
-                <artifactId>jbeat-boot-starter</artifactId>
+                <artifactId>jbeat-starter</artifactId>
                 <version>${jbeat.version}</version>
             </dependency>
 
