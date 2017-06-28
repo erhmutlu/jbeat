@@ -28,7 +28,6 @@ public class AutoDiscoverChangesRunner extends JBeatRunner{
             Long autoDiscoverInterval = jBeatProperties.getAutoDiscoverInterval();
             logger.info("AutoDiscoverInterval: {} !", autoDiscoverInterval);
 
-            // TODO initialize autodiscover changes job
             ScheduledJob autoDiscoverJob = new AutoDiscoverChangesJob(autoDiscoverInterval, periodicTaskService, scheduledJobService );
             autoDiscoverJob.schedule();
         }else {

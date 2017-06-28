@@ -60,4 +60,12 @@ public class AutoDiscoverChangesJob extends AbstractJob {
         scheduler.scheduleAtFixedRate(rate, this);
     }
 
+    @Override
+    public String toString() {
+        return "AutoDiscoverChangesJob{" +
+                "rate=" + rate +
+                ", periodicTaskService=" + periodicTaskService +
+                ", scheduledJobService=" + scheduledJobService +
+                '}';
+    }
 }
