@@ -33,6 +33,7 @@ public class RabbitJob extends AbstractJob{
     @Override
     public void run(){
         logger.info(task.getTaskName() + " is running!");
+        logger.info("Description: {}", task.getDescription());
 //        rabbitWriterService.write(task.getQueue(), task.getParams());
 //        periodicTaskService.increaseTotalRunByTaskName(task.getTaskName());
 

@@ -10,6 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
  * Created by erhmutlu on 08/06/17.
  */
@@ -80,6 +84,14 @@ public class ScheduledJobServiceImpl implements ScheduledJobService {
         scheduledJobRegistry.remove(taskName);
         logger.info("Task is removed from registry");
 
+    }
+
+    @Override
+    public List<ScheduledJob> getAllRegisteredJobs(){
+        logger.info("ScheduledJobService getAllRegisteredJobs");
+
+        Map<String, ScheduledJob> all = scheduledJobRegistry.all();
+        return all.values().stream().collect(Collectors.toList());
     }
 
     private ScheduledJob findSchedulerByTaskName(String taskName){

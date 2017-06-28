@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 
 /**
@@ -47,9 +49,15 @@ public class ScheduledJobServiceTest extends BaseTest {
 
         logger.info("{}", periodicTask);
 
+        List<ScheduledJob> registeredJobs = scheduledJobService.getAllRegisteredJobs();
+        Assert.assertEquals(0, registeredJobs.size());
+
         scheduledJobService.schedule(periodicTask);
         ScheduledJob rabbitJob = registry.get(periodicTask.getTaskName());
         Assert.assertEquals(periodicTask, rabbitJob.getTask());
+
+        registeredJobs = scheduledJobService.getAllRegisteredJobs();
+        Assert.assertEquals(1, registeredJobs.size());
 
         // PUT test when taskname is updated
         String oldTaskName = periodicTask.getTaskName();
@@ -63,6 +71,8 @@ public class ScheduledJobServiceTest extends BaseTest {
 
         // new RabbitJob should be instantiated in the registry and the old one should be removed from registry!
         Assert.assertNull(registry.get(oldTaskName));
+        registeredJobs = scheduledJobService.getAllRegisteredJobs();
+        Assert.assertEquals(1, registeredJobs.size());
 
         //Disable
         scheduledJobService.disable(periodicTask.getTaskName());

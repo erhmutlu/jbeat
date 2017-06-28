@@ -29,4 +29,8 @@ public class Registry<T> {
     public void remove(String identifier){
         registry.remove(identifier);
     }
+
+    public Map<String, T> all(){
+        return this.registry;
+    }
 }
