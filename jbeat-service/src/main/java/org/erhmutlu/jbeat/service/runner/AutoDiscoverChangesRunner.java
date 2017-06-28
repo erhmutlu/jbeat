@@ -1,8 +1,10 @@
 package org.erhmutlu.jbeat.service.runner;
 
 import org.erhmutlu.jbeat.api.JBeatProperties;
+import org.erhmutlu.jbeat.api.ScheduledJob;
 import org.erhmutlu.jbeat.service.PeriodicTaskService;
 import org.erhmutlu.jbeat.service.ScheduledJobService;
+import org.erhmutlu.jbeat.service.schedule.AutoDiscoverJob;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +29,8 @@ public class AutoDiscoverChangesRunner extends JBeatRunner{
             logger.info("AutoDiscoverInterval: {} !", autoDiscoverInterval);
 
             // TODO initialize autodiscover changes job
+            ScheduledJob autoDiscoverJob = new AutoDiscoverJob(autoDiscoverInterval);
+            autoDiscoverJob.schedule();
         }else {
             logger.info("AutoDiscoverChanges is disabled!");
         }

@@ -32,7 +32,7 @@ public class ScheduledJobServiceImpl implements ScheduledJobService {
     /**
      * Schedules the given PeriodicTask using PeriodicTask.crontab field.
      *
-     * If the given task is registered in the Registry, PeriodicTask is updated and RabbitJob continues to work.
+     * If the given task is registered in the Registry, PeriodicTask is updated and ScheduledJob continues to work.
      *
      * @param periodicTask
      * @return

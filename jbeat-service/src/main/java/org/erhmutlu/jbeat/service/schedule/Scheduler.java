@@ -16,14 +16,30 @@ public class Scheduler {
     private ScheduledFuture scheduledFuture;
     private TaskScheduler taskScheduler;
 
-    public void schedule(String crontab, Runnable runnable){
-        if(taskScheduler== null){
+    public Scheduler() {
+        initiliaze();
+    }
+
+    private void initiliaze(){
+        if(taskScheduler == null){
             taskScheduler = new ConcurrentTaskScheduler();
         }
+    }
+
+    public void schedule(String crontab, Runnable runnable){
+        stopIfScheduled();
+        scheduledFuture = taskScheduler.schedule(runnable, new CronTrigger(crontab));
+    }
+
+    public void scheduleAtFixedRate(Long period, Runnable runnable){
+        stopIfScheduled();
+        scheduledFuture = taskScheduler.scheduleAtFixedRate(runnable, period);
+    }
+
+    private void stopIfScheduled(){
         if (this.scheduledFuture != null) {
             stop();
         }
-        scheduledFuture = taskScheduler.schedule(runnable, new CronTrigger(crontab));
     }
 
     public void stop(){

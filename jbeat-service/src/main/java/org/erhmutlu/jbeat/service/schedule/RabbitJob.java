@@ -17,7 +17,6 @@ import java.util.concurrent.ScheduledFuture;
  * Created by erhmutlu on 05/06/17.
  */
 public class RabbitJob extends AbstractJob implements ScheduledJob{
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private PeriodicTask task;
     private RabbitWriterService rabbitWriterService;

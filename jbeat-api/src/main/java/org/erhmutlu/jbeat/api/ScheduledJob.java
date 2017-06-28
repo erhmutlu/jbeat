@@ -7,7 +7,6 @@ import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
  */
 public interface ScheduledJob extends Runnable {
 
-
     void schedule();
 
     void stop();
