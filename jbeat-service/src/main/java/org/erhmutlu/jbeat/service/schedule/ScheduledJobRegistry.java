@@ -1,6 +1,7 @@
 package org.erhmutlu.jbeat.service.schedule;
 
 import org.erhmutlu.jbeat.api.Registry;
+import org.erhmutlu.jbeat.api.ScheduledJob;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

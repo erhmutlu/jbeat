@@ -1,5 +1,6 @@
 package org.erhmutlu.jbeat.service.schedule;
 
+import org.erhmutlu.jbeat.api.ScheduledJob;
 import org.erhmutlu.jbeat.api.exceptions.JBeatException;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.PeriodicTaskService;
@@ -15,31 +16,21 @@ import java.util.concurrent.ScheduledFuture;
 /**
  * Created by erhmutlu on 05/06/17.
  */
-public class ScheduledJob implements Runnable{
+public class RabbitJob extends AbstractJob implements ScheduledJob{
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private ScheduledFuture scheduledFuture;
-    private TaskScheduler taskScheduler;
 
     private PeriodicTask task;
     private RabbitWriterService rabbitWriterService;
     private PeriodicTaskService periodicTaskService;
 
-    public ScheduledJob(PeriodicTask periodicTask, RabbitWriterService rabbitWriterService, PeriodicTaskService periodicTaskService) {
+    public RabbitJob(PeriodicTask periodicTask, RabbitWriterService rabbitWriterService, PeriodicTaskService periodicTaskService) {
+        super();
         this.task = periodicTask;
         this.rabbitWriterService = rabbitWriterService;
         this.periodicTaskService = periodicTaskService;
     }
 
-    public void schedule(){
-        if(taskScheduler== null){
-            taskScheduler = new ConcurrentTaskScheduler();
-        }
-        if (this.scheduledFuture != null) {
-            stop();
-        }
-        scheduledFuture = taskScheduler.schedule(this, new CronTrigger(task.getCrontab()));
-    }
+
     @Override
     public void run(){
         logger.info(task.getTaskName() + " is running!");
@@ -48,46 +39,31 @@ public class ScheduledJob implements Runnable{
 
     }
 
-    public void stop(){
-        scheduledFuture.cancel(true);
+    @Override
+    public void schedule(){
+        scheduler.schedule(task.getCrontab(), this);
     }
 
+    @Override
+    public void stop(){
+        scheduler.stop();
+    }
+
+    @Override
     public void setPeriodicTask(PeriodicTask periodicTask) {
         task = periodicTask;
     }
 
+    @Override
     public PeriodicTask getTask() {
         return task;
     }
 
     @Override
     public String toString() {
-        return "ScheduledJob{" +
+        return "RabbitJob{" +
                 "task=" + task +
                 '}';
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) {
-//            return true;
-//        }
-//        if (o == null || getClass() != o.getClass()) {
-//            return false;
-//        }
-//
-//        ScheduledJob that = (ScheduledJob) o;
-//        PeriodicTask thatTask = that.getTask();
-//
-//        if (thatTask != null){
-//            Long id = task.getId();
-//            Long o_id = thatTask.getId();
-//
-//            return id.equals(o_id);
-//        }
-//
-//        return false;
-//
-//    }
 
 }

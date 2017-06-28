@@ -1,9 +1,10 @@
 package org.erhmutlu.jbeat.service;
 
+import org.erhmutlu.jbeat.api.ScheduledJob;
 import org.erhmutlu.jbeat.persistency.dao.PeriodicTaskDao;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.config.BaseTest;
-import org.erhmutlu.jbeat.service.schedule.ScheduledJob;
+import org.erhmutlu.jbeat.service.schedule.RabbitJob;
 import org.erhmutlu.jbeat.service.schedule.ScheduledJobRegistry;
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,8 +48,8 @@ public class ScheduledJobServiceTest extends BaseTest {
         logger.info("{}", periodicTask);
 
         scheduledJobService.schedule(periodicTask);
-        ScheduledJob scheduledJob = registry.get(periodicTask.getTaskName());
-        Assert.assertEquals(periodicTask, scheduledJob.getTask());
+        ScheduledJob rabbitJob = registry.get(periodicTask.getTaskName());
+        Assert.assertEquals(periodicTask, rabbitJob.getTask());
 
         // PUT test when taskname is updated
         String oldTaskName = periodicTask.getTaskName();
@@ -57,10 +58,10 @@ public class ScheduledJobServiceTest extends BaseTest {
         periodicTaskDao.save(periodicTask);
 
         scheduledJobService.schedule(periodicTask);
-        scheduledJob = registry.get(periodicTask.getTaskName());
-        Assert.assertEquals(newTaskName, scheduledJob.getTask().getTaskName());
+        rabbitJob = registry.get(periodicTask.getTaskName());
+        Assert.assertEquals(newTaskName, rabbitJob.getTask().getTaskName());
 
-        // new ScheduledJob should be instantiated in the registry and the old one should be removed from registry!
+        // new RabbitJob should be instantiated in the registry and the old one should be removed from registry!
         Assert.assertNull(registry.get(oldTaskName));
 
         //Disable

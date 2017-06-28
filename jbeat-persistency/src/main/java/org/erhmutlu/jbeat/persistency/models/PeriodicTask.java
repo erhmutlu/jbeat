@@ -30,6 +30,8 @@ public class PeriodicTask {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 
+
+    // TODO should be text field
     @Column(name = "params")
     @Convert(converter = JpaJsonConverter.class)
     private Object params;

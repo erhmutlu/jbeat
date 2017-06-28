@@ -1,7 +1,8 @@
 package org.erhmutlu.jbeat.service;
 
+import org.erhmutlu.jbeat.api.ScheduledJob;
 import org.erhmutlu.jbeat.api.exceptions.JBeatException;
-import org.erhmutlu.jbeat.service.schedule.ScheduledJob;
+import org.erhmutlu.jbeat.service.schedule.RabbitJob;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;

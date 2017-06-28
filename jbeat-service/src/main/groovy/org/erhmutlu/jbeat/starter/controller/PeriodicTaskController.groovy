@@ -2,7 +2,7 @@ package org.erhmutlu.jbeat.starter.controller
 
 import org.erhmutlu.jbeat.service.JBeatFacade
 import org.erhmutlu.jbeat.api.ParameterValidator
-import org.erhmutlu.jbeat.service.schedule.ScheduledJob
+import org.erhmutlu.jbeat.service.schedule.RabbitJob
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
@@ -57,7 +57,7 @@ class PeriodicTaskController {
      * @return
      */
     @RequestMapping(value = "/tasks/schedule", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    ScheduledJob schedule(@RequestBody Map map) {
+    RabbitJob schedule(@RequestBody Map map) {
         logger.info("PeriodicTaskController schedule(body: {})", map)
 
         String crontab = map.get("crontab")

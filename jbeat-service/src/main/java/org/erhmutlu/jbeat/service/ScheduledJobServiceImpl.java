@@ -1,8 +1,9 @@
 package org.erhmutlu.jbeat.service;
 
+import org.erhmutlu.jbeat.api.ScheduledJob;
 import org.erhmutlu.jbeat.api.exceptions.JBeatException;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
-import org.erhmutlu.jbeat.service.schedule.ScheduledJob;
+import org.erhmutlu.jbeat.service.schedule.RabbitJob;
 import org.erhmutlu.jbeat.service.schedule.ScheduledJobRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class ScheduledJobServiceImpl implements ScheduledJobService {
     /**
      * Schedules the given PeriodicTask using PeriodicTask.crontab field.
      *
-     * If the given task is registered in the Registry, PeriodicTask is updated and ScheduledJob continues to work.
+     * If the given task is registered in the Registry, PeriodicTask is updated and RabbitJob continues to work.
      *
      * @param periodicTask
      * @return
@@ -39,19 +40,19 @@ public class ScheduledJobServiceImpl implements ScheduledJobService {
     @Override
     public ScheduledJob schedule(PeriodicTask periodicTask){
         logger.info("ScheduledJobService register(periodicTask: {})", periodicTask);
-        ScheduledJob scheduledJob = findSchedulerByTaskName(periodicTask.getTaskName());
-        if (scheduledJob == null){
+        ScheduledJob job = findSchedulerByTaskName(periodicTask.getTaskName());
+        if (job == null){
             logger.info("Scheduled Job has not registered before, taskName: {}", periodicTask.getTaskName());
-            scheduledJob = new ScheduledJob(periodicTask, rabbitWriterService, periodicTaskService);
-            scheduledJobRegistry.put(scheduledJob);
+            job = new RabbitJob(periodicTask, rabbitWriterService, periodicTaskService);
+            scheduledJobRegistry.put(job);
         }else {
             logger.info("Scheduled Job has registered before, taskName: {}\n periodicTask instance will be updated.", periodicTask.getTaskName());
 
-            scheduledJob.setPeriodicTask(periodicTask);
+            job.setPeriodicTask(periodicTask);
         }
 
-        scheduledJob.schedule();
-        return scheduledJob;
+        job.schedule();
+        return job;
     }
 
     @Override
