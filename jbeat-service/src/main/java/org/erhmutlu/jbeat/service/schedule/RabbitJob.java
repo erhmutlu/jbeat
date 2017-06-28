@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledFuture;
 /**
  * Created by erhmutlu on 05/06/17.
  */
-public class RabbitJob extends AbstractJob implements ScheduledJob{
+public class RabbitJob extends AbstractJob{
 
     private PeriodicTask task;
     private RabbitWriterService rabbitWriterService;
@@ -41,11 +41,6 @@ public class RabbitJob extends AbstractJob implements ScheduledJob{
     @Override
     public void schedule(){
         scheduler.schedule(task.getCrontab(), this);
-    }
-
-    @Override
-    public void stop(){
-        scheduler.stop();
     }
 
     @Override
