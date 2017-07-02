@@ -14,6 +14,8 @@ public class JBeatProperties {
 
     private Runner runner = new Runner();
 
+    private Rabbit rabbit = new Rabbit();
+
     public Runner getRunner() {
         return runner;
     }
@@ -22,12 +24,12 @@ public class JBeatProperties {
         this.runner = runner;
     }
 
-    public Boolean isAutoDiscoverChangesEnabled() {
-        return getRunner().isAutoDiscoverChangesEnabled();
+    public Rabbit getRabbit() {
+        return rabbit;
     }
 
-    public Long getAutoDiscoverInterval() {
-        return getRunner().getAutoDiscoverInterval();
+    public void setRabbit(Rabbit rabbit) {
+        this.rabbit = rabbit;
     }
 
     public static class Runner {
@@ -48,6 +50,18 @@ public class JBeatProperties {
 
         public void setAutoDiscoverInterval(Long autoDiscoverInterval) {
             this.autoDiscoverInterval = autoDiscoverInterval;
+        }
+    }
+
+    public static class Rabbit {
+        private Boolean declareQueueOnSchedule;
+
+        public Boolean getDeclareQueueOnSchedule() {
+            return declareQueueOnSchedule;
+        }
+
+        public void setDeclareQueueOnSchedule(Boolean declareQueueOnSchedule) {
+            this.declareQueueOnSchedule = declareQueueOnSchedule;
         }
     }
 }

@@ -23,9 +23,9 @@ public class AutoDiscoverChangesRunner extends JBeatRunner{
     public void run(String... strings) throws Exception {
         logger.info("AutoDiscoverChangesRunner run is starting...");
 
-        if(jBeatProperties.isAutoDiscoverChangesEnabled()){
+        if(jBeatProperties.getRunner().isAutoDiscoverChangesEnabled()){
             logger.info("AutoDiscoverChanges is enabled!");
-            Long autoDiscoverInterval = jBeatProperties.getAutoDiscoverInterval();
+            Long autoDiscoverInterval = jBeatProperties.getRunner().getAutoDiscoverInterval();
             logger.info("AutoDiscoverInterval: {} !", autoDiscoverInterval);
 
             ScheduledJob autoDiscoverJob = new AutoDiscoverChangesJob(autoDiscoverInterval, periodicTaskService, scheduledJobService );

@@ -8,16 +8,12 @@ import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.config.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by erhmutlu on 15/06/17.
  */
 public class PeriodicTaskServiceTest extends BaseTest {
-
-    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     PeriodicTaskService periodicTaskService;

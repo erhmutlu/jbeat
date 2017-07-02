@@ -1,17 +1,8 @@
 package org.erhmutlu.jbeat.service.schedule;
 
-import org.erhmutlu.jbeat.api.ScheduledJob;
-import org.erhmutlu.jbeat.api.exceptions.JBeatException;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.PeriodicTaskService;
-import org.erhmutlu.jbeat.service.RabbitWriterService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
-import org.springframework.scheduling.support.CronTrigger;
-
-import java.util.concurrent.ScheduledFuture;
+import org.erhmutlu.jbeat.service.RabbitService;
 
 /**
  * Created by erhmutlu on 05/06/17.
@@ -19,13 +10,13 @@ import java.util.concurrent.ScheduledFuture;
 public class RabbitJob extends AbstractJob{
 
     private PeriodicTask task;
-    private RabbitWriterService rabbitWriterService;
+    private RabbitService rabbitService;
     private PeriodicTaskService periodicTaskService;
 
-    public RabbitJob(PeriodicTask periodicTask, RabbitWriterService rabbitWriterService, PeriodicTaskService periodicTaskService) {
+    public RabbitJob(PeriodicTask periodicTask, RabbitService rabbitService, PeriodicTaskService periodicTaskService) {
         super();
         this.task = periodicTask;
-        this.rabbitWriterService = rabbitWriterService;
+        this.rabbitService = rabbitService;
         this.periodicTaskService = periodicTaskService;
     }
 
@@ -33,7 +24,7 @@ public class RabbitJob extends AbstractJob{
     @Override
     public void run(){
         logger.info(task.getTaskName() + " is running!");
-//        rabbitWriterService.write(task.getQueue(), task.getParams());
+//        rabbitService.write(task.getQueue(), task.getParams());
 //        periodicTaskService.increaseTotalRunByTaskName(task.getTaskName());
 
     }

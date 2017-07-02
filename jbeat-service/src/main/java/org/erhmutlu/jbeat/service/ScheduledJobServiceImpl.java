@@ -24,12 +24,12 @@ public class ScheduledJobServiceImpl implements ScheduledJobService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private ScheduledJobRegistry scheduledJobRegistry;
-    private RabbitWriterService rabbitWriterService;
+    private RabbitService rabbitService;
     private PeriodicTaskService periodicTaskService;
 
-    public ScheduledJobServiceImpl(ScheduledJobRegistry scheduledJobRegistry, RabbitWriterService rabbitWriterService, PeriodicTaskService periodicTaskService) {
+    public ScheduledJobServiceImpl(ScheduledJobRegistry scheduledJobRegistry, RabbitService rabbitService, PeriodicTaskService periodicTaskService) {
         this.scheduledJobRegistry = scheduledJobRegistry;
-        this.rabbitWriterService = rabbitWriterService;
+        this.rabbitService = rabbitService;
         this.periodicTaskService = periodicTaskService;
     }
 
@@ -47,7 +47,7 @@ public class ScheduledJobServiceImpl implements ScheduledJobService {
         ScheduledJob job = findSchedulerByTaskName(periodicTask.getTaskName());
         if (job == null){
             logger.info("Scheduled Job has not registered before, taskName: {}", periodicTask.getTaskName());
-            job = new RabbitJob(periodicTask, rabbitWriterService, periodicTaskService);
+            job = new RabbitJob(periodicTask, rabbitService, periodicTaskService);
             scheduledJobRegistry.put(job);
         }else {
             logger.info("Scheduled Job has registered before, taskName: {}\n periodicTask instance will be updated.", periodicTask.getTaskName());

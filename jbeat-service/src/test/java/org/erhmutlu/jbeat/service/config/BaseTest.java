@@ -4,6 +4,8 @@ import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.config.JBeatServiceConfig;
 import org.erhmutlu.jbeat.service.config.JBeatTestConfig;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -16,6 +18,8 @@ import java.util.Random;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {JBeatTestConfig.class, JBeatServiceConfig.class})
 public class BaseTest {
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private Random random = new Random();
 

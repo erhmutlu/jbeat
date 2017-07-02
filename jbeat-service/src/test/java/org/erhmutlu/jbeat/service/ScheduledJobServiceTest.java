@@ -4,7 +4,6 @@ import org.erhmutlu.jbeat.api.ScheduledJob;
 import org.erhmutlu.jbeat.persistency.dao.PeriodicTaskDao;
 import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.config.BaseTest;
-import org.erhmutlu.jbeat.service.schedule.RabbitJob;
 import org.erhmutlu.jbeat.service.schedule.ScheduledJobRegistry;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,7 +34,7 @@ public class ScheduledJobServiceTest extends BaseTest {
     ScheduledJobService scheduledJobService;
 
     @Autowired
-    RabbitWriterService rabbitWriterService;
+    RabbitService rabbitService;
 
     @Autowired
     PeriodicTaskService periodicTaskService;
