@@ -1,5 +1,6 @@
 package org.erhmutlu.jbeat.service;
 
+import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpAdmin;
@@ -32,19 +33,19 @@ public class RabbitServiceImpl implements RabbitService {
     }
 
     @Override
-    public void write(String queueName, Map<String, Object> map){
-        logger.info("RabbitService write(queueName: {}, map: {})", queueName, map);
+    public void write(PeriodicTask task){
+        logger.info("RabbitService write(task: {})", task);
 
+        String queueName = task.getQueue();
         declareQueue(queueName); //safe to call declareQueues, RabbitAdmin declares if the queue is not exist!
 
-        rabbitTemplate.convertAndSend(queueName, map);
+        rabbitTemplate.convertAndSend(queueName, task);
     }
 
     @Override
     public void declareQueue(String queueName){
         logger.info("RabbitService declareQueue(queueName: {})", queueName);
         amqpAdmin.declareQueue(new Queue(queueName, true));
-        logger.info("Queue is declared!");
     }
 
 }

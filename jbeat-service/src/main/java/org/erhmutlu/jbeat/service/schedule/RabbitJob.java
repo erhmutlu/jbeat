@@ -4,6 +4,8 @@ import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.PeriodicTaskService;
 import org.erhmutlu.jbeat.service.RabbitService;
 
+import java.util.Map;
+
 /**
  * Created by erhmutlu on 05/06/17.
  */
@@ -24,7 +26,8 @@ public class RabbitJob extends AbstractJob{
     @Override
     public void run(){
         logger.info(task.getTaskName() + " is running!");
-//        rabbitService.write(task.getQueue(), task.getParams());
+
+        rabbitService.write(task);
 //        periodicTaskService.increaseTotalRunByTaskName(task.getTaskName());
 
     }

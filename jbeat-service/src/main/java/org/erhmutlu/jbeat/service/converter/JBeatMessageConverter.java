@@ -1,5 +1,6 @@
 package org.erhmutlu.jbeat.service.converter;
 
+import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -18,7 +19,11 @@ public class JBeatMessageConverter extends Jackson2JsonMessageConverter{
     @Override
     protected Message createMessage(Object objectToConvert, MessageProperties messageProperties) {
 
-        RabbitDsl dsl = new RabbitDsl((Map<String, Object>) objectToConvert);
+        PeriodicTask task = (PeriodicTask) objectToConvert;
+
+        RabbitDsl dsl = new RabbitDsl(
+                task.getParams(),
+                task.getTaskName());
 
         return super.createMessage(dsl, messageProperties);
     }

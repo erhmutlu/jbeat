@@ -1,13 +1,13 @@
 package org.erhmutlu.jbeat.service;
 
-import java.util.Map;
+import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 
 /**
  * Created by erhmutlu on 10/06/17.
  */
 public interface RabbitService {
 
-    void write(String queueName, Map<String, Object> map);
+    void write(PeriodicTask task);
 
     void declareQueue(String queueName);
 }

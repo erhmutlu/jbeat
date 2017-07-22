@@ -1,5 +1,6 @@
 package org.erhmutlu.jbeat.service;
 
+import org.erhmutlu.jbeat.persistency.models.PeriodicTask;
 import org.erhmutlu.jbeat.service.config.BaseTest;
 import org.junit.Test;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -27,10 +28,10 @@ public class RabbitWriterTest extends BaseTest {
     public void testMe(){
         logger.info("RabbitWriterTest testMe is beginning");
 
-        Map map = new HashMap<>();
-        map.put("name", "erhan");
+        PeriodicTask task = randomPeriodicTaskInstance();
+        task.setQueue("test-queue1111");
 
-        rabbitService.write("test-queue2", map);
+        rabbitService.write(task);
 
     }
 }

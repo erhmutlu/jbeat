@@ -12,10 +12,12 @@ import java.util.Map;
 public class RabbitDsl implements Serializable{
 
     private Map<String, Object> kwargs;
+    private String task;
     private Date date = new Date();
 
-    public RabbitDsl(Map<String, Object> kwargs) {
+    public RabbitDsl(Map<String, Object> kwargs, String taskName) {
         this.kwargs = kwargs;
+        this.task = taskName;
     }
 
     public Map<String, Object> getKwargs() {
@@ -25,5 +27,9 @@ public class RabbitDsl implements Serializable{
     @JsonSerialize(using = JBeatDateSerializer.class)
     public Date getDate() {
         return date;
+    }
+
+    public String getTask() {
+        return task;
     }
 }
