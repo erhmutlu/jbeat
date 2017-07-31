@@ -1,4 +1,4 @@
-package org.erhmutlu.jbeat.service.converter;
+package org.erhmutlu.jbeat.api;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -20,16 +20,31 @@ public class RabbitDsl implements Serializable{
         this.task = taskName;
     }
 
+    public RabbitDsl() {
+    }
+
     public Map<String, Object> getKwargs() {
         return kwargs;
     }
 
-    @JsonSerialize(using = JBeatDateSerializer.class)
+//    @JsonSerialize(using = JBeatDateSerializer.class)
     public Date getDate() {
         return date;
     }
 
     public String getTask() {
         return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
+    }
+
+    public void setKwargs(Map<String, Object> kwargs) {
+        this.kwargs = kwargs;
+    }
+
+    public void setDate(Long date) {
+        this.date = new Date(date);
     }
 }
